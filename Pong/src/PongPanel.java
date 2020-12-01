@@ -20,7 +20,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		Timer timer = new Timer(TIMER_DELAY, this);
 		timer.start();
 	}
+	
+	boolean gameInitialised = false;
+	Ball ball;
+	
+	public void createObjects() {
+		ball = new Ball (getWidth(), getHeight());
+	}
 	private void update() {
+		if(! gameInitialised) {
+			createObjects();
+			gameInitialised = true;
+		}
+		
+	}
+	
+	private void paintSprite(Graphics g, Sprite sprite) {
+		g.setColor(sprite.getColour());
+		g.fillRect(sprite.getXPosition(), sprite.getYPosition(), sprite.getWidth(), sprite.getHeight());
 		
 	}
 	private void paintDottedLine(Graphics g) {
@@ -31,11 +48,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		g2d.drawLine(getWidth()/2, 0, getWidth()/2, getHeight());
 		g2d.dispose();
 	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintDottedLine(g);
-		//g.setColor(Color.WHITE);
+		if(gameInitialised) {
+		paintSprite(g, ball);
+		}
+		//g.setColor(Color.WHITE);   this was to test that the colour was working		
 		//g.fillRect(20, 20, 100, 100);
 	}
 

@@ -16,6 +16,7 @@ public class Sprite {
 	public int getYVelocity() {return yVelocity;}
 	public int getWidth() 	  {return width;}
 	public int getHeight()	  {return height;}
+	public Color getColour()   {return colour;}
 	
 	public void setInitialPosition(int initialX, int initialY) {
 		initialXPosition = initialX;
@@ -69,4 +70,5 @@ public class Sprite {
 	public Rectangle getRectangle() {
 		return new Rectangle(getXPosition(), getYPosition(), getWidth(), getHeight());
 	}
+	
 }
