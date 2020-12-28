@@ -12,16 +12,17 @@ import java.awt.BasicStroke;
 
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
-	private final static Color BACKGROUND_COLOUR = Color.BLACK;
+	//private final static Color BACKGROUND_COLOUR = Color.BLACK;
 	private final static int TIMER_DELAY = 5;
 	
 	public PongPanel() {
-		setBackground(BACKGROUND_COLOUR);
+		setBackground(Color.BLACK);
 		Timer timer = new Timer(TIMER_DELAY, this);
-		timer.start();
+		//timer.start();
 	}
-	
-	boolean gameInitialised = false;
+	private void update() {
+	}
+/*	boolean gameInitialised = false;
 	Ball ball;
 	
 	public void createObjects() {
@@ -39,7 +40,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(sprite.getColour());
 		g.fillRect(sprite.getXPosition(), sprite.getYPosition(), sprite.getWidth(), sprite.getHeight());
 		
-	}
+	}*/
 	private void paintDottedLine(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] {9}, 0);
@@ -53,9 +54,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintDottedLine(g);
-		if(gameInitialised) {
-		paintSprite(g, ball);
-		}
+		
+		
 		//g.setColor(Color.WHITE);   this was to test that the colour was working		
 		//g.fillRect(20, 20, 100, 100);
 	}
