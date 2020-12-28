@@ -18,6 +18,28 @@ public class Sprite {
 	public int getHeight()	  {return height;}
 	public Color getColour()   {return colour;}
 	
+	public void setXPosition(int newX) {
+		xPosition = newX;
+	}
+	public void setYPosition(int newY) {
+		yPosition = newY;
+	}
+	public void setXPosition(int newX, int panelWidth) {
+		xPosition = newX;
+		if (xPosition < 0) {
+			xPosition = 0;
+		} else if (xPosition + width > panelWidth) {
+			xPosition = panelWidth - width;
+		}
+		}
+		public void setYPosition(int newY, int panelHeight) {
+			yPosition = newY;
+			if(yPosition< 0) {
+				yPosition = 0;
+			}else if (yPosition + height > panelHeight) {
+				yPosition = panelHeight - height;
+			}
+		}
 	public void setInitialPosition(int initialX, int initialY) {
 		initialXPosition = initialX;
 		initialYPosition = initialY;
@@ -28,30 +50,6 @@ public class Sprite {
 		setYPosition(initialYPosition);
 	}
 	
-	private void setYPosition(int initialYPosition2) {
-		// TODO Auto-generated method stub
-		
-	}
-	private void setXPosition(int initialXPosition2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setXPosition(int newX, int panelWidth) {
-		xPosition = newX;
-		if (xPosition < 0) {
-			xPosition = 0;
-		} else if (xPosition + width > panelWidth) {
-			xPosition = panelWidth - width;
-		}
-	}
-	public void setYPosition(int newY, int panelHeight) {
-		yPosition = newY;
-		if(yPosition< 0) {
-			yPosition = 0;
-		}else if (yPosition + height > panelHeight) {
-			yPosition = panelHeight - height;
-		}
-	}
 	public void setXVelocity(int newXVelocity) {
 		xVelocity = newXVelocity;
 	}
