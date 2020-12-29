@@ -12,30 +12,38 @@ import java.awt.BasicStroke;
 
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener {
-	private static final Color BACKGROUND_COLOUR = Color.BLACK;
-	private static final int TIMER_DELAY = 5;
-	boolean gameInitialised = false;
+	private final static Color BACKGROUND_COLOUR = Color.BLACK;
+	private final static int TIMER_DELAY = 5;
+	
 	Ball ball;
+	GameState gameState = GameState.Initialising;
+	Paddle paddle1, paddle2;
 	
 	public PongPanel() {
 		setBackground(BACKGROUND_COLOUR);
-		//Timer timer = new Timer(TIMER_DELAY, this);
-		//timer.start();
+		Timer timer = new Timer(TIMER_DELAY, this);
+		timer.start();
 	}
 	
 	public void createObjects() {
 		ball = new Ball (getWidth(), getHeight());
+		paddle1 = new Paddle (Player.One, getWidth(), getHeight());
+		paddle2 = new Paddle (Player.Two, getWidth(), getHeight());
 	}
 	private void update() {
-		if(!gameInitialised) {
+		switch(gameState) {
+		case Initialising: {
 			createObjects();
-			gameInitialised = true;
+			gameState = GameState.Playing;
+			break;
 		}
-	}
-	private void paintSprite(Graphics g, Sprite sprite) {
-		g.setColor(sprite.getColour());
-		g.fillRect(sprite.getXPosition(), sprite.getYPosition(), sprite.getWidth(), sprite.getHeight());
-		
+		case Playing: {
+			break;
+		}
+		case GameOver:{
+			break;
+		}
+		}
 	}
 	private void paintDottedLine(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -45,20 +53,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		g2d.drawLine(getWidth()/2, 0, getWidth()/2, getHeight());
 		g2d.dispose();
 	}
+	private void paintSprite(Graphics g, Sprite sprite) {
+		g.setColor(sprite.getColour());
+		g.fillRect(sprite.getXPosition(), sprite.getYPosition(), sprite.getWidth(), sprite.getHeight());
+		
+	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintDottedLine(g);
-		if(gameInitialised) {
+		if(gameState != GameState.Initialising) {
 		paintSprite(g, ball);
+		paintSprite(g, paddle1);
+		paintSprite(g, paddle2);}
 		}
-		
-		
-		//g.setColor(Color.WHITE);   this was to test that the colour was working		
-		//g.fillRect(20, 20, 100, 100);
-	}
-
 	@Override
 	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -74,17 +83,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent event) {
 		// TODO Auto-generated method stub
-		
 	}
-	
-
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		update();
 		repaint();
-		
-		
 	}			
-	
-
 }
